@@ -230,6 +230,7 @@ function App() {
           satoshis: utxo.value,
           script: bsv.Script.buildPublicKeyHashOut(platformAddress).toString()
         })))
+        .feePerKb(10)
         .to(userAddress, 5)
         .change(platformAddress)
         .sign(platformPrivateKey);
@@ -245,7 +246,7 @@ function App() {
       }
 
       const broadcastData = await broadcastResponse.json();
-      setLastRewardTxId(broadcastData.txid);
+      setLastRewardTxId(broadcastData);
       setShowRewardMessage(true);
       triggerCelebration();
 
